@@ -132,12 +132,34 @@ func tampilkanOOTD() {
 }
 
 func rekomendasi(acara, cuaca string) string {
-	if acara == "formal" && cuaca == "hujan" {
-		return "Setelan jas dengan jas hujan dan sepatu tahan air."
-	} else if acara == "santai" && cuaca == "cerah" {
-		return "Kaos, celana pendek, dan sandal."
-	} else if acara == "formal" && cuaca == "berawan" {
-		return "Batik dengan payung berjaga-jaga."
+	switch acara {
+	case "formal":
+		switch cuaca {
+		case "hujan":
+			return "Setelan jas dengan jas hujan dan sepatu tahan air."
+		case "cerah":
+			return "Kemeja dan celana bahan dengan sepatu kulit."
+		case "berawan":
+			return "Batik dengan payung untuk berjaga-jaga."
+		}
+	case "casual":
+		switch cuaca {
+		case "hujan":
+			return "Hoodie, celana jeans, dan sepatu sneakers tahan air."
+		case "cerah":
+			return "Kaos, celana pendek, dan sandal."
+		case "berawan":
+			return "Kemeja casual dengan celana chino."
+		}
+	case "sporty":
+		switch cuaca {
+		case "cerah":
+			return "Kaos olahraga dan celana training dengan sepatu lari."
+		case "hujan":
+			return "Jaket waterproof dan celana training."
+		case "berawan":
+			return "Kaos lengan panjang dan celana olahraga pendek."
+		}
 	}
 	return "OOTD tidak tersedia untuk kombinasi ini."
 }
@@ -245,10 +267,12 @@ func main() {
 			tampilkanOOTD()
 		case 11:
 			var acara, cuaca string
-			fmt.Print("Masukkan acara/cuaca (formal/hujan/dll): ")
+			fmt.Print("Masukkan jenis acara (formal/casual/sporty): ")
 			fmt.Scan(&acara)
-			rekomendasi(acara, cuaca)
-			fmt.Println("Rekomendasi OOTD:", rekomendasi(acara, cuaca))
+			fmt.Print("Masukkan kondisi cuaca (cerah/hujan/berawan): ")
+			fmt.Scan(&cuaca)
+			hasil := rekomendasi(acara, cuaca)
+			fmt.Println("Rekomendasi OOTD:", hasil)
 		case 0:
 			fmt.Println("Terima kasih telah menggunakan OOTD Planner. Bye!")
 			return
